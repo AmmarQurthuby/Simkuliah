@@ -6,7 +6,7 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'dosen') {
 }
 include_once __DIR__ . '/../config/koneksi.php';
 include_once __DIR__ . '/../models/jadwal.php';
-$nip = $_SESSION['username'];
+$nip = $_SESSION['nip'];
 $jadwal_dosen = getJadwalByNip($nip);
 // Ambil nilai yang sudah diinput
 $sqlNilai = "SELECT n.*, m.nama_mk FROM nilai n JOIN matakuliah m ON n.kode_mk = m.kode_mk WHERE n.kode_mk IN (SELECT kode_mk FROM jadwal WHERE nip = '$nip')";

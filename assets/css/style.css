@@ -1,13 +1,9 @@
 /* Modern style for Sistem Informasi Perkuliahan */
-body {
-    font-family: 'Segoe UI', Arial, sans-serif;
-    background: #f4f6fb;
+body, html {
+    height: 100%;
     margin: 0;
     padding: 0;
-    height: 100%;
-}
-html {
-    height: 100%;
+    background: #f4f6fb;
 }
 #app {
     min-height: 100vh;
@@ -16,6 +12,7 @@ html {
 }
 #content {
     flex: 1;
+    transition: margin-left 0.3s;
 }
 .container {
     max-width: 400px;
@@ -168,6 +165,9 @@ a:hover {
 .sidebar-overlay.active {
     display: block;
 }
+#content.shift {
+    margin-left: 220px;
+}
 .main {
     margin-left: 0;
     padding: 32px 24px;
@@ -193,7 +193,7 @@ a:hover {
 }
 @media (max-width: 800px) {
     .sidebar { width: 100px; }
-    .main { margin-left: 110px; }
+    #content.shift { margin-left: 100px; }
     .container, .table-container, .card { padding: 12px; }
     h2, h3 { font-size: 18px; }
 }

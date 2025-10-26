@@ -12,6 +12,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $_SESSION['login'] = true;
         $_SESSION['role'] = $row['role'];
         $_SESSION['username'] = $row['username'];
+        if ($row['role'] == 'dosen') {
+            $_SESSION['nip'] = $row['ref_id'];
+        }
         // Redirect sesuai role
         if ($row['role'] == 'admin') {
             header('Location: dashboard_admin.php');

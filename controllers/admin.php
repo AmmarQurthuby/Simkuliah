@@ -3,6 +3,7 @@
 
 include_once __DIR__ . '/../models/matakuliah.php';
 include_once __DIR__ . '/../models/jadwal.php';
+include_once __DIR__ . '/../models/dosen.php';
 
 $aksi = $_GET['aksi'] ?? '';
 
@@ -29,6 +30,21 @@ if ($aksi == 'tambah_jadwal' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $jam = $_POST['jam'];
     tambahJadwal($kode_mk, $nip, $ruang, $hari, $jam);
     header('Location: ../views/dashboard_admin.php?page=jadwal');
+    exit;
+}
+
+if ($aksi == 'tambah_dosen' && $_SERVER['REQUEST_METHOD'] == 'POST') {
+    $nip = $_POST['nip'];
+    $nama = $_POST['nama'];
+    $email = $_POST['email'];
+    tambahDosen($nip, $nama, $email);
+    header('Location: ../views/dashboard_admin.php?page=dosen');
+    exit;
+}
+
+if ($aksi == 'hapus_dosen' && isset($_GET['nip'])) {
+    hapusDosen($_GET['nip']);
+    header('Location: ../views/dashboard_admin.php?page=dosen');
     exit;
 }
 ?>
