@@ -33,6 +33,13 @@ if ($aksi == 'tambah_jadwal' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     exit;
 }
 
+if ($aksi == 'hapus_jadwal' && isset($_GET['id_jadwal'])) {
+    include_once __DIR__ . '/../models/jadwal.php';
+    hapusJadwal($_GET['id_jadwal']);
+    header('Location: ../views/dashboard_admin.php?page=jadwal');
+    exit;
+}
+
 if ($aksi == 'tambah_dosen' && $_SERVER['REQUEST_METHOD'] == 'POST') {
     $nip = $_POST['nip'];
     $nama = $_POST['nama'];
@@ -45,6 +52,13 @@ if ($aksi == 'tambah_dosen' && $_SERVER['REQUEST_METHOD'] == 'POST') {
 if ($aksi == 'hapus_dosen' && isset($_GET['nip'])) {
     hapusDosen($_GET['nip']);
     header('Location: ../views/dashboard_admin.php?page=dosen');
+    exit;
+}
+
+if ($aksi == 'hapus_nilai' && isset($_GET['id_nilai'])) {
+    include_once __DIR__ . '/../models/nilai.php';
+    hapusNilai($_GET['id_nilai']);
+    header('Location: ../views/dashboard_admin.php?page=nilai');
     exit;
 }
 ?>

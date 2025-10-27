@@ -108,7 +108,7 @@ $page = $_GET['page'] ?? 'mahasiswa';
                 <button type="submit">Tambah Jadwal</button>
             </form>
             <table>
-                <tr><th>Mata Kuliah</th><th>Dosen</th><th>Ruang</th><th>Hari</th><th>Jam</th></tr>
+                <tr><th>Mata Kuliah</th><th>Dosen</th><th>Ruang</th><th>Hari</th><th>Jam</th><th>Aksi</th></tr>
                 <?php while($row = mysqli_fetch_assoc($jadwal)): ?>
                 <tr>
                     <td><?= $row['nama_mk'] ?> (<?= $row['kode_mk'] ?>)</td>
@@ -116,6 +116,7 @@ $page = $_GET['page'] ?? 'mahasiswa';
                     <td><?= $row['ruang'] ?></td>
                     <td><?= $row['hari'] ?></td>
                     <td><?= $row['jam'] ?></td>
+                    <td><a href="../controllers/admin.php?aksi=hapus_jadwal&id_jadwal=<?= $row['id_jadwal'] ?>" onclick="return confirm('Hapus jadwal ini?')">Hapus</a></td>
                 </tr>
                 <?php endwhile; ?>
             </table>
@@ -153,13 +154,14 @@ $page = $_GET['page'] ?? 'mahasiswa';
             $nilai = mysqli_query($conn, $sqlNilai);
             ?>
             <table>
-                <tr><th>NIM</th><th>Nama MK</th><th>Nilai</th><th>Semester</th></tr>
+                <tr><th>NIM</th><th>Nama MK</th><th>Nilai</th><th>Semester</th><th>Aksi</th></tr>
                 <?php while($row = mysqli_fetch_assoc($nilai)): ?>
                 <tr>
                     <td><?= $row['nim'] ?></td>
                     <td><?= $row['nama_mk'] ?></td>
                     <td><?= $row['nilai'] ?></td>
                     <td><?= $row['semester'] ?></td>
+                    <td><a href="../controllers/admin.php?aksi=hapus_nilai&id_nilai=<?= $row['id_nilai'] ?>" onclick="return confirm('Hapus nilai ini?')">Hapus</a></td>
                 </tr>
                 <?php endwhile; ?>
             </table>

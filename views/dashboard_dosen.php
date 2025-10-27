@@ -48,6 +48,22 @@ $nilai = mysqli_query($conn, $sqlNilai);
                 <input type="text" name="semester" placeholder="Semester" required>
                 <button type="submit">Input Nilai</button>
             </form>
+            <h3>Jadwal Perkuliahan Dosen</h3>
+            <table>
+                <tr><th>Kode MK</th><th>Nama MK</th><th>Ruang</th><th>Hari</th><th>Jam</th></tr>
+                <?php
+                // Query ulang jadwal dosen untuk tabel
+                $jadwal_dosen_table = getJadwalByNip($nip);
+                while($row = mysqli_fetch_assoc($jadwal_dosen_table)): ?>
+                <tr>
+                    <td><?= $row['kode_mk'] ?></td>
+                    <td><?= $row['nama_mk'] ?></td>
+                    <td><?= $row['ruang'] ?></td>
+                    <td><?= $row['hari'] ?></td>
+                    <td><?= $row['jam'] ?></td>
+                </tr>
+                <?php endwhile; ?>
+            </table>
             <h3>Daftar Nilai yang Diinput</h3>
             <table>
                 <tr><th>Kode MK</th><th>Nama MK</th><th>NIM</th><th>Nilai</th><th>Semester</th></tr>

@@ -8,4 +8,10 @@ function inputNilai($nim, $kode_mk, $nilai, $semester) {
     $sql = "INSERT INTO nilai (nim, kode_mk, nilai, semester) VALUES ('$nim', '$kode_mk', '$nilai', '$semester')";
     return mysqli_query($conn, $sql);
 }
+
+function hapusNilai($id_nilai) {
+    global $conn;
+    $sql = "DELETE FROM nilai WHERE id_nilai='$id_nilai'";
+    return mysqli_query($conn, $sql);
+}
 ?>

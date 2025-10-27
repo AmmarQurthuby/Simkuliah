@@ -12,4 +12,10 @@ function getJadwalByNip($nip) {
     $sql = "SELECT j.*, m.nama_mk FROM jadwal j JOIN matakuliah m ON j.kode_mk = m.kode_mk WHERE j.nip = '$nip'";
     return mysqli_query($conn, $sql);
 }
+
+function hapusJadwal($id_jadwal) {
+    global $conn;
+    $sql = "DELETE FROM jadwal WHERE id_jadwal='$id_jadwal'";
+    return mysqli_query($conn, $sql);
+}
 ?>
