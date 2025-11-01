@@ -15,6 +15,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         if ($row['role'] == 'dosen') {
             $_SESSION['nip'] = $row['ref_id'];
         }
+        // Tambahkan session ref_id untuk mahasiswa
+        if ($row['role'] == 'mahasiswa') {
+            $_SESSION['ref_id'] = $row['ref_id'];
+        }
         // Redirect sesuai role
         if ($row['role'] == 'admin') {
             header('Location: dashboard_admin.php');

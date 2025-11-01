@@ -5,9 +5,19 @@ if (!isset($_SESSION['login']) || $_SESSION['role'] != 'mahasiswa') {
     exit;
 }
 include_once __DIR__ . '/../config/koneksi.php';
-$nim = $_SESSION['username'];
-$sql = "SELECT n.*, m.nama_mk FROM nilai n JOIN matakuliah m ON n.kode_mk = m.kode_mk WHERE n.nim = '$nim'";
-$nilai = mysqli_query($conn, $sql);
+$nim = isset($_SESSION['ref_id']) ? $_SESSION['ref_id'] : $_SESSION['username'];
+
+// Query nilai
+$sqlNilai = "SELECT n.*, m.nama_mk FROM nilai n JOIN matakuliah m ON n.kode_mk = m.kode_mk WHERE n.nim = '$nim'";
+$nilai = mysqli_query($conn, $sqlNilai);
+
+// Query jadwal: hanya jadwal yang diambil mahasiswa (berdasarkan nilai)
+$sqlJadwal = "SELECT j.*, m.nama_mk, d.nama as nama_dosen 
+              FROM jadwal j 
+              JOIN matakuliah m ON j.kode_mk = m.kode_mk 
+              JOIN dosen d ON j.nip = d.nip
+              WHERE j.kode_mk IN (SELECT kode_mk FROM nilai WHERE nim = '$nim')";
+$jadwal = mysqli_query($conn, $sqlJadwal);
 ?>
 <!DOCTYPE html>
 <html>
@@ -22,7 +32,7 @@ $nilai = mysqli_query($conn, $sql);
     <div class="sidebar" id="sidebar">
         <ul>
             <li><a href="dashboard_mahasiswa.php">Nilai</a></li>
-            <li><a href="#">Jadwal</a></li>
+            <li><a href="#jadwal">Jadwal</a></li>
             <li><a href="logout.php">Logout</a></li>
         </ul>
     </div>
@@ -39,6 +49,21 @@ $nilai = mysqli_query($conn, $sql);
                     <td><?= $row['nama_mk'] ?></td>
                     <td><?= $row['nilai'] ?></td>
                     <td><?= $row['semester'] ?></td>
+                </tr>
+                <?php endwhile; ?>
+            </table>
+        </div>
+        <div class="card" id="jadwal">
+            <h3>Jadwal Perkuliahan</h3>
+            <table>
+                <tr><th>Mata Kuliah</th><th>Dosen</th><th>Ruang</th><th>Hari</th><th>Jam</th></tr>
+                <?php while($row = mysqli_fetch_assoc($jadwal)): ?>
+                <tr>
+                    <td><?= $row['nama_mk'] ?> (<?= $row['kode_mk'] ?>)</td>
+                    <td><?= $row['nama_dosen'] ?> (<?= $row['nip'] ?>)</td>
+                    <td><?= $row['ruang'] ?></td>
+                    <td><?= $row['hari'] ?></td>
+                    <td><?= $row['jam'] ?></td>
                 </tr>
                 <?php endwhile; ?>
             </table>
